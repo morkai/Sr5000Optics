@@ -1,0 +1,15 @@
+﻿{
+  "bank": -1,
+  "luminary": "TEST",
+  "components": [
+    {"item": "6110", "material":  "607341", "quantity": 1},
+    {"item": "6120", "material":  "607341", "quantity": 1},
+    {"item": "6130", "material":  "607341", "quantity": 1},
+    {"item": "6140", "material":  "607341", "quantity": 1},
+    {"item": "6210", "material":  "607341", "quantity": 1},
+    {"item": "6220", "material":  "607341", "quantity": 1},
+    {"item": "6230", "material":  "607341", "quantity": 1},
+    {"item": "6240", "material":  "607341", "quantity": 1},
+    {"item": "7100", "material":  "442295461301", "quantity": 2}
+  ]
+}
