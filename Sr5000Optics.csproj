@@ -131,7 +131,9 @@
     <None Include="input.test.json" />
     <None Include="input.dev.json" />
     <None Include="packages.config" />
-    <None Include="readme.md" />
+    <None Include="readme.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

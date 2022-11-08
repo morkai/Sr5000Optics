@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace Sr5000Optics
@@ -56,6 +57,12 @@ namespace Sr5000Optics
           Disconnect();
           break;
 
+        case "image":
+          ValidateInputConfig();
+          ConfigureAreas();
+          PrepareResultImage();
+          break;
+
         default:
           Err($"Unknown operation [{input.Operation}].");
           break;
@@ -84,6 +91,11 @@ namespace Sr5000Optics
 
     static string Cmd(string cmd)
     {
+      if (input.Operation == "image")
+      {
+        return "";
+      }
+
       if (reader == null)
       {
         Err($"Cannot execute command [{cmd}]: not connected.");
@@ -477,6 +489,9 @@ namespace Sr5000Optics
       var tmp = new Bitmap(img.Width, img.Height);
       var passPen = new Pen(Color.GreenYellow, 8);
       var failPen = new Pen(Color.Red, 8);
+      var font = new Font(FontFamily.GenericMonospace, 20);
+      var textBgWidth = 380;
+      var textBgHeight = 70;
 
       using (var g = Graphics.FromImage(tmp))
       {
@@ -491,6 +506,30 @@ namespace Sr5000Optics
             areaResult.Area.X2 - areaResult.Area.X1,
             areaResult.Area.Y2 - areaResult.Area.Y1
           );
+
+          var led = areaResult.Component.Item.StartsWith(config.LedsPrefix);
+          var x1 = (int)Math.Round(led ? (areaResult.Area.X1 - textBgWidth - passPen.Width / 2) : (areaResult.Area.X2 + passPen.Width / 2));
+          var y1 = (areaResult.Area.Y1 + (areaResult.Area.Y2 - areaResult.Area.Y1) / 2) - (textBgHeight / 2);
+
+          g.FillRectangle(Brushes.Black, x1, y1, textBgWidth, textBgHeight);
+
+          var actual = areaResult.ReadCode;
+
+          if (actual.Length > 12)
+          {
+            var match = Regex.Match(actual, "([0-9]{12})");
+
+            if (match.Success)
+            {
+              actual = match.Groups[1].Value;
+            }
+            else
+            {
+              actual = actual.Substring(0, 12);
+            }
+          }
+
+          g.DrawString($"Expected: {areaResult.Component.Material}\r\n  Actual: {actual}", font, Brushes.White, new Point(x1 + 5, y1 + 5));
         }
       }
 

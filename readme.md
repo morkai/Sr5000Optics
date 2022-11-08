@@ -126,8 +126,8 @@ line contains the error.
 
 If the operation succeeds, the app exits with code 0, the stdout contains
 `OK` or `NOK` string and the result image is saved to the `latest.jpg` file
-in the same directory the `Sr5000Optics.exe` is located (if there already is
-a `latest.jpg` file, it is moved to `previous.jpg`).
+in the same directory the `Sr5000Optics.exe` is located in (if there already
+is a `latest.jpg` file, it is moved to `previous.jpg`).
 
 `OK` result means that all codes were read and match the specified materials.
 
