@@ -485,13 +485,15 @@ namespace Sr5000Optics
     {
       Log("Preparing the result image...");
 
+      var fontSize = 50;
+      var textBgWidth = 600;
+      var textBgHeight = 156;
+
       var img = (Bitmap)Image.FromFile(TMP_IMAGE_FILE_PATH);
       var tmp = new Bitmap(img.Width, img.Height);
       var passPen = new Pen(Color.GreenYellow, 8);
       var failPen = new Pen(Color.Red, 8);
-      var font = new Font(FontFamily.GenericMonospace, 20);
-      var textBgWidth = 380;
-      var textBgHeight = 70;
+      var font = new Font(FontFamily.GenericMonospace, fontSize);
 
       using (var g = Graphics.FromImage(tmp))
       {
@@ -513,6 +515,7 @@ namespace Sr5000Optics
 
           g.FillRectangle(Brushes.Black, x1, y1, textBgWidth, textBgHeight);
 
+          var expected = areaResult.Component.Material;
           var actual = areaResult.ReadCode;
 
           if (actual.Length > 12)
@@ -529,7 +532,7 @@ namespace Sr5000Optics
             }
           }
 
-          g.DrawString($"Expected: {areaResult.Component.Material}\r\n  Actual: {actual}", font, Brushes.White, new Point(x1 + 5, y1 + 5));
+          g.DrawString(led ? $"{expected} ?\r\n{actual} =" : $"? {expected}\r\n= {actual}", font, Brushes.White, new Point(x1 + 5, y1 + 5));
         }
       }
 
