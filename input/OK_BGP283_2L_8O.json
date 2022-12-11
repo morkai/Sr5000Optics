@@ -1,0 +1,15 @@
+{
+  "bank": 0,
+  "luminary": "BGP283",
+  "components": [
+    {"item": "6110", "material":  "442295607311", "quantity": 1},
+    {"item": "6120", "material":  "442295607311", "quantity": 1},
+    {"item": "6130", "material":  "607341", "quantity": 1},
+    {"item": "6140", "material":  "442295607311", "quantity": 1},
+    {"item": "6210", "material":  "442295607311", "quantity": 1},
+    {"item": "6220", "material":  "442295607311", "quantity": 1},
+    {"item": "6230", "material":  "442295607311", "quantity": 1},
+    {"item": "6240", "material":  "607341", "quantity": 1},
+    {"item": "0040", "material":  "442295461301", "quantity": 2}
+  ]
+}
