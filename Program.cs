@@ -532,8 +532,18 @@ namespace Sr5000Optics
             }
           }
 
-          g.DrawString(led ? $"{expected} ?\r\n{actual} =" : $"? {expected}\r\n= {actual}", font, Brushes.White, new Point(x1 + 5, y1 + 5));
+          g.DrawString(led ? $"{expected.PadLeft(12)} ?\r\n{actual.PadLeft(12)} =" : $"? {expected}\r\n= {actual}", font, Brushes.White, new Point(x1 + 5, y1 + 5));
         }
+
+        var infoFont = new Font(FontFamily.GenericSerif, fontSize);
+        var infoBgWidth = 1007;
+        var infoBgHeight = 160;
+
+        g.FillRectangle(Brushes.Black, (img.Width - infoBgWidth) / 2, img.Height - infoBgHeight, infoBgWidth, infoBgHeight);
+        g.DrawString("?", font, Brushes.White, new Point((img.Width - infoBgWidth) / 2, img.Height - infoBgHeight));
+        g.DrawString("=", font, Brushes.White, new Point((img.Width - infoBgWidth) / 2, img.Height - infoBgHeight / 2));
+        g.DrawString("Expected code / Oczekiwany kod", infoFont, Brushes.White, new Point(75 + (img.Width - infoBgWidth) / 2, img.Height - infoBgHeight));
+        g.DrawString("Actual code / Rzeczywisty kod", infoFont, Brushes.White, new Point(75 + (img.Width - infoBgWidth) / 2, img.Height - infoBgHeight / 2));
       }
 
       var tmpFilePath = TMP_IMAGE_FILE_PATH + ".tmp.jpg";
